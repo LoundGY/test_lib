@@ -1,6 +1,7 @@
 #!/bin/bash
 
 echo "bebraasdasdasdasd"
+echo "zxc"
 
 yarn run build
 
