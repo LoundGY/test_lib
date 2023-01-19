@@ -9,7 +9,7 @@
           "inputSpec": "./openapi/openapi.yml",
           "output": "projects/dynamic-simplifier-services/src",
           "additionalProperties": {
-            "fileNaming": "kebab-case",
+              "fileNaming": "kebab-case",
             "enumPropertyNaming": "UPPERCASE",
             "modelPropertyNaming": "camelCase",
             "modelFileSuffix": ".interface",
