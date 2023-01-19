@@ -1,6 +1,6 @@
 {
   "name": "@tps/dynamic-simplifier-dtos",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "peerDependencies": {},
   "dependencies": {
     "tslib": "^2.3.0"

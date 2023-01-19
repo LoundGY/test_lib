@@ -1,6 +1,6 @@
 {
   "name": "dynamic-simplifier-services",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "scripts": {
     "ng": "ng",
     "prepare": "husky install",
@@ -131,7 +131,7 @@
         "@semantic-release/github",
         {
           "path": "dist/**/*.js",
-          "GITHUB_TOKEN":"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"
+          "GITHUB_TOKEN": "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"
         }
       ],
       [
