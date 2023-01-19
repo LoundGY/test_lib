@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo "bebraasdasdasdasd"
+
 yarn run build
 
 DIR="$( dirname -- "${BASH_SOURCE[0]}"; )";   # Get the directory name
