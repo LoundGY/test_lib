@@ -130,13 +130,14 @@
       [
         "@semantic-release/github",
         {
-          "path": "dist/**/*.js"
+          "path": "dist/**/*.js",
+          "GITHUB_TOKEN":"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"
         }
       ],
       [
         "@semantic-release/exec",
         {
-          "publishCmd": "./publish.sh"
+          "publishCmd": "publish.sh"
         }
       ]
     ]
