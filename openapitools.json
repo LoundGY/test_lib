@@ -1,0 +1,36 @@
+{
+    "$schema": "./node_modules/@openapitools/openapi-generator-cli/config.schema.json",
+    "spaces": 2,
+    "generator-cli": {
+      "version": "6.0.0-beta",
+      "generators": {
+        "dynamic-simplifier-services": {
+          "generatorName": "typescript-angular",
+          "inputSpec": "./openapi/openapi.yml",
+          "output": "projects/dynamic-simplifier-services/src",
+          "additionalProperties": {
+            "fileNaming": "kebab-case",
+            "enumPropertyNaming": "UPPERCASE",
+            "modelPropertyNaming": "camelCase",
+            "modelFileSuffix": ".interface",
+            "stringEnums": true,
+            "apiModulePrefix": "DynamicSimplifier"
+          }
+        },
+        "dynamic-simplifier-dtos": {
+            "generatorName": "typescript-nestjs",
+            "inputSpec": "./openapi/openapi.yml",
+            "output": "projects/dynamic-simplifier-dtos/src",
+            "additionalProperties": {
+              "fileNaming": "kebab-case",
+              "enumPropertyNaming": "UPPERCASE",
+              "modelPropertyNaming": "camelCase",
+              "modelFileSuffix": ".dto",
+              "stringEnums": true,
+              "apiModulePrefix": "DynamicSimplifier"
+            },
+            "globalProperty": "models,supportingFiles=models.ts"
+          }
+      }
+    }
+  }

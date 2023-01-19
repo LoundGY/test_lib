@@ -1,0 +1,4 @@
+<p>{{title}}</p>
+<section *ngIf="sub$ | async as config" >
+    <p>{{config.result?.productName}} {{config.result?.tpsVersion}}</p>
+</section>

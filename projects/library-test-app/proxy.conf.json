@@ -1,0 +1,25 @@
+[{
+    "context": [
+        "/rest/v0/dynamic-simplifier/trainsasd/"
+    ],
+    "target": "http://localhost:4010/",
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": { "^/rest/": "" }
+},
+{
+    "context": ["/rest/"],
+    "target": "https://vm-tps-udas-test-web-1.local.hacon.de/rest/",
+    "secure": false,
+    "logLevel": "debug",
+    "pathRewrite": { "^/rest": "" }
+},
+{
+    "context": ["/ws/"],
+    "target": "http://localhost:8082",
+    "secure": false,
+    "ws": true,
+    "changeOrigin": true,
+    "pathRewrite": { "^/ws/": "" }
+}
+]

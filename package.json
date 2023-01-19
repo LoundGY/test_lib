@@ -1,0 +1,144 @@
+{
+  "name": "dynamic-simplifier-services",
+  "version": "0.0.0",
+  "scripts": {
+    "ng": "ng",
+    "prepare": "husky install",
+    "start": "ng serve library-test-app",
+    "build": "yarn run build:dynamic-simplifier-services & yarn run build:dynamic-simplifier-dtos",
+    "build:dynamic-simplifier-services": "yarn generate-api:dynamic-simplifier-services && node --max_old_space_size=8048 ./node_modules/@angular/cli/bin/ng build dynamic-simplifier-services --configuration production",
+    "build:dynamic-simplifier-dtos": "yarn generate-api:dynamic-simplifier-dtos && node --max_old_space_size=8048 ./node_modules/@angular/cli/bin/ng build dynamic-simplifier-dtos --configuration production",
+    "watch:dynamic-simplifier-services": "ng build dynamic-simplifier-services --watch --configuration development",
+    "watch:dynamic-simplifier-dtos": "ng build dynamic-simplifier-dtos --watch --configuration development",
+    "lint": "yarn run lint:dynamic-simplifier-services & yarn run lint:dynamic-simplifier-dtos",
+    "lint:dynamic-simplifier-services": "ng lint dynamic-simplifier-services --fix && prettier --write \"**/*.scss\" -l",
+    "lint:dynamic-simplifier-dtos": "ng lint dynamic-simplifier-dtos --fix && prettier --write \"**/*.scss\" -l",
+    "test": "yarn run test:dynamic-simplifier-services & yarn run test:dynamic-simplifier-dtos",
+    "test:dynamic-simplifier-services": "jest dynamic-simplifier-services --coverage --passWithNoTests",
+    "test:dynamic-simplifier-dtos": "jest dynamic-simplifier-dtos --coverage --passWithNoTests",
+    "lint:ci": "yarn run lint:dynamic-simplifier-services:ci & yarn run lint:dynamic-simplifier-dtos:ci",
+    "lint:dynamic-simplifier-services:ci": "ng lint dynamic-simplifier-services && prettier --check \"**/*.scss\"",
+    "lint:dynamic-simplifier-dtos:ci": "ng lint dynamic-simplifier-dtos && prettier --check \"**/*.scss\"",
+    "test:ci": "yarn run test:dynamic-simplifier-services:ci & yarn run test:dynamic-simplifier-dtos:ci",
+    "test:dynamic-simplifier-services:ci": "ng test dynamic-simplifier-services --ci --reporters=jest-junit --coverage",
+    "test:dynamic-simplifier-dtos:ci": "ng test dynamic-simplifier-dtos --ci --reporters=jest-junit --coverage",
+    "semantic-release": "semantic-release",
+    "generate-api:dynamic-simplifier-services": "openapi-generator-cli generate --generator-key 'dynamic-simplifier-services'",
+    "generate-api:dynamic-simplifier-dtos": "openapi-generator-cli generate --generator-key 'dynamic-simplifier-dtos'"
+  },
+  "private": true,
+  "dependencies": {
+    "@angular/animations": "^15.0.0",
+    "@angular/common": "^15.0.0",
+    "@angular/compiler": "^15.0.0",
+    "@angular/core": "^15.0.0",
+    "@angular/forms": "^15.0.0",
+    "@angular/platform-browser": "^15.0.0",
+    "@angular/platform-browser-dynamic": "^15.0.0",
+    "@angular/router": "^15.0.0",
+    "rxjs": "~7.5.0",
+    "tslib": "^2.3.0",
+    "zone.js": "~0.11.4"
+  },
+  "devDependencies": {
+    "@angular-builders/jest": "^15.0.0",
+    "@angular-devkit/build-angular": "^15.0.0",
+    "@angular-eslint/builder": "^15.1.0",
+    "@angular-eslint/eslint-plugin": "^15.1.0",
+    "@angular-eslint/eslint-plugin-template": "^15.1.0",
+    "@angular-eslint/schematics": "^15.1.0",
+    "@angular-eslint/template-parser": "^15.1.0",
+    "@angular/cli": "~15.0.0",
+    "@angular/compiler-cli": "^15.0.0",
+    "@angular/language-service": "^15.0.0",
+    "@commitlint/cli": "^17.2.0",
+    "@commitlint/config-conventional": "^17.2.0",
+    "@openapitools/openapi-generator-cli": "^2.5.2",
+    "@semantic-release/changelog": "^6.0.1",
+    "@semantic-release/exec": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/gitlab": "^9.5.0",
+    "@semantic-release/npm": "^9.0.1",
+    "@trivago/prettier-plugin-sort-imports": "^3.4.0",
+    "@types/faker": "^6.6.9",
+    "@types/jest": "^29.2.1",
+    "@typescript-eslint/eslint-plugin": "^5.42.0",
+    "@typescript-eslint/parser": "^5.42.0",
+    "cz-conventional-changelog": "3.3.0",
+    "eslint": "^8.26.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-jsdoc": "^39.6.2",
+    "eslint-plugin-prettier": "^4.2.1",
+    "faker-js": "^1.0.0",
+    "husky": "^8.0.2",
+    "jest": "28.1.3",
+    "jest-junit": "^14.0.1",
+    "jest-marbles": "^3.0.3",
+    "jest-preset-angular": "^12.2.2",
+    "ng-packagr": "^14.2.0",
+    "prettier": "^2.7.1",
+    "semantic-release": "^19.0.5",
+    "typescript": "~4.7.2"
+  },
+  "packageManager": "yarn@3.2.1",
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "release": {
+    "branches": [
+      "master"
+    ],
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/changelog",
+      [
+        "@semantic-release/npm",
+        {
+          "npmPublish": false
+        }
+      ],
+      [
+        "@semantic-release/npm",
+        {
+          "npmPublish": false,
+          "pkgRoot": "projects/dynamic-simplifier-services"
+        }
+      ],
+      [
+        "@semantic-release/npm",
+        {
+          "npmPublish": false,
+          "pkgRoot": "projects/dynamic-simplifier-dtos"
+        }
+      ],
+      [
+        "@semantic-release/git",
+        {
+          "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}",
+          "assets": [
+            "CHANGELOG.md",
+            "package.json",
+            "projects/dynamic-simplifier-services/package.json",
+            "projects/dynamic-simplifier-dtos/package.json",
+            "yarn.lock"
+          ]
+        }
+      ],
+      [
+        "@semantic-release/gitlab",
+        {
+          "path": "dist/**/*.js"
+        }
+      ],
+      [
+        "@semantic-release/exec",
+        {
+          "publishCmd": "./publish.sh"
+        }
+      ]
+    ]
+  }
+}

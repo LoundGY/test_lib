@@ -1,0 +1,70 @@
+default:
+  image: tps-docker.repo.imscloud.de/ci/alpine-node-16
+  tags:
+    - krupy
+
+variables:
+  NODE_EXTRA_CA_CERTS: /usr/local/share/ca-certificates/HaConRootCA.crt
+  KRUPY_POD_RESOURCES: 'requests.cpu=100m'
+  KRUPY_VOLUMES: "pvc/tps-yarn-local:/yarn"
+
+workflow:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_TAG
+    - if: $CI_COMMIT_REF_PROTECTED
+
+stages:
+  - Prequisine
+  - Test
+  - Release
+
+.push_cache:
+  variables:
+    KRUPY_ACTIONS: 'create_pipeline_volume,create_pipeline_snapshot'
+
+.pull_cache:
+  variables:
+    KRUPY_ACTIONS: 'mount_volume_snapshot'
+    GIT_STRATEGY: none
+
+Install Dependencies:
+  stage: Prequisine
+  script:
+    - yarn install --immutable
+  extends: .push_cache
+
+Commit Lint:
+  extends: .pull_cache
+  stage: Test
+  script:
+    - echo "${CI_COMMIT_MESSAGE}" | yarn commitlint
+
+EsLint:
+  stage: Test
+  script:
+    - yarn run lint:ci
+  coverage: /All\sfiles.*?\s+(\d+.\d+)/
+  extends: .pull_cache
+
+Unit Tests:
+  stage: Test
+  script:
+    - yarn run test:ci
+  coverage: /All\sfiles.*?\s+(\d+.\d+)/
+  extends: .pull_cache
+  artifacts:
+    when: always
+    paths:
+      - junit.xml
+    reports:
+      junit: junit.xml
+
+Semantic Release:
+  extends: .pull_cache
+  stage: Release
+  script:
+    - echo $ARTIFACTORY_NPM_RC > ~/.npmrc
+    - yarn semantic-release
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH

@@ -1,0 +1,13 @@
+# compiled output
+dist
+src/environments
+src/main.ts
+src/polyfills.ts
+src
+
+# misc
+coverage
+
+#testing
+jest.conf.js
+
